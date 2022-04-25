@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include('partials/headLanding.ejs') %>
+ 
+  <body>
+    <!-- Navigation Bar -->
+    <%- include('partials/navLanding.ejs') %>
+
+    <!-- Login Body -->
+    <div class="container login-container">
+      <div class="row">
+        <!-- Login Image -->
+        <div class="col-0 col-sm-6 col-md-7 login-image-container">
+          <img
+            src="/image/Login Image.svg"
+            alt="Login Image"
+            class="img-fluid"
+          />
+        </div>
+        <!-- Login Form -->
+        <div class="col-12 col-sm-6 col-md-5">
+
+          <form action="/login" method="post" class="login-form">
+            <div class="h4 login-title">Sign In to Gratis Agency</div>
+            <!--Alert message-->
+            <% if(locals.errors) {%>
+            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+              <strong><%= locals.errors %></strong> You should check in some of those fields below.
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            <%}%>
+            <!-- Username Input -->
+            <div class="field">
+              <label class="label">Username :</label>
+              <div class="control has-icons-left has-icons-right">
+                <input class="input user-name-input" type="text" name="username" placeholder="Enter Username" />
+                <span class="icon is-small is-left"><i class="fas fa-user"></i></span>
+              </div>
+              <ul class="input-requirements hide">
+                <li>At least 6 characters long</li>
+                <li>No special characters and numbers</li>
+              </ul>
+              <label for="" class="userNameErrorLabel"></label>
+            </div>
+
+            <!-- Password Input -->
+            <div class="field">
+              <label class="label">Password</label>
+              <div class="control has-icons-left has-icons-right">
+                <input class="input password-input" type="password" name="password" placeholder="Enter Password"/>
+                <span class="icon is-small is-left"><i class="fas fa-unlock"></i></span>
+              </div>
+              <ul class="input-requirements hide">
+                <li>
+                  At least 8 characters long (and less than 14 characters)
+                </li>
+                <li>Contains at least 1 number</li>
+                <li>Contains at least 1 lowercase letter</li>
+                <li>Contains at least 1 uppercase letter</li>
+                <li>Contains a special character (e.g. @ !)</li>
+              </ul>
+              <label for="" class="passwordErrorLabel"></label>
+            </div>
+
+            <!-- Submit Button -->
+            <input type="submit" value="Login" class="submit-button" />
+            <p class="redirect">
+              Not a user yet? <a href="/signUp">Sign Up Here.</a>
+            </p>
+          </form>
+        </div>
+      </div>
+    </div>
+    <!-- Footer Section -->
+    <%- include('partials/footer.ejs') %>
+  </body>
+</html>
