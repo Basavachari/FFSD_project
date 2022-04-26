@@ -23,7 +23,7 @@
         <form action="/signUp" method="post" class="sign-up-form" id="form">
           <div class="h4 sign-up-title">Sign Up for Gratis Agency</div>
             <!--Alert message-->
-            <% if(locals.error) {%>
+            <% if(locals.error) { %>
               <div class="alert alert-warning alert-dismissible fade show" role="alert">
                 <strong><%= locals.error %></strong> You should check the fields and try again.
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
@@ -100,7 +100,7 @@
           <div class="field">
             <div class="control user-type-field">
               <label class="radio p-0">
-                <input type="radio" name="userType" value="user" id="userType1" />
+                <input type="radio" name="userType" value="user" id="userType1" checked/>
                 Sign up as a User
               </label>
               <label class="radio p-0">

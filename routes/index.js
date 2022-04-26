@@ -16,7 +16,7 @@ router.post('/signUp', function(req, res) {
 	const personInfo = req.body;
 	// console.log(personInfo.username);
 
-	if(!personInfo.email || !personInfo.username || !personInfo.password || !personInfo.passwordConf){
+	if(!personInfo.email || !personInfo.username || !personInfo.password || !personInfo.passwordConf|| !personInfo.userType){
 		res.send();
 	} else {
 		if (personInfo.password == personInfo.passwordConf) {
@@ -41,13 +41,7 @@ router.post('/signUp', function(req, res) {
 						});
 
 					}).sort({_id: -1}).limit(1);
-					if(data.userType=="user"){
-						res.redirect('/home/'+data.username);
-					}else {
-						console.log("loged in as admin");
-						res.redirect('/admin/'+data.username);
-					}
-					// res.redirect('/home/'+personInfo.username);
+					res.render('login',{errors:"You need to login again."});
 				}else{
 					res.render('signUp',{error:"Email is already used."});
 				}

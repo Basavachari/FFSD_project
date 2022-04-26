@@ -11,11 +11,7 @@
       <div class="row">
         <!-- Login Image -->
         <div class="col-0 col-sm-6 col-md-7 login-image-container">
-          <img
-            src="/image/Login Image.svg"
-            alt="Login Image"
-            class="img-fluid"
-          />
+          <img src="/image/Login Image.svg" alt="Login Image" class="img-fluid" />
         </div>
         <!-- Login Form -->
         <div class="col-12 col-sm-6 col-md-5">
@@ -25,7 +21,7 @@
             <!--Alert message-->
             <% if(locals.errors) {%>
             <div class="alert alert-warning alert-dismissible fade show" role="alert">
-              <strong><%= locals.errors %></strong> You should check in some of those fields below.
+              <strong><%= locals.errors %></strong>
               <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
             <%}%>
