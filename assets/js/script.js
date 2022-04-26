@@ -3,6 +3,7 @@ form.addEventListener('submit', (e) => {
     let emailErrors = []
     let passwordErrors = []
     let confirmPasswordErrors = []
+    let userTypeErrors=[]
     let form = document.getElementById('form');
     let username = document.getElementById('u').value.trim();
     let email = document.getElementById('em').value.trim();
@@ -40,8 +41,16 @@ form.addEventListener('submit', (e) => {
         emailErrors.push("*Invalid email address")
       }
     }
+    
     if (confirm !== password) {
       confirmPasswordErrors.push("* password is not matching")
+    }
+
+    if(!document.getElementById("userType1").checked && !document.getElementById("userType2").checked)
+    { 
+      userTypeErrors.push("*Please select the user type");
+    }
+    else{
     }
     if (usernameErrors.length > 0 || passwordErrors.length > 0 || confirmPasswordErrors.length > 0 || emailErrors.length > 0) {
       e.preventDefault();
@@ -49,5 +58,6 @@ form.addEventListener('submit', (e) => {
       document.getElementById('small2').innerText = passwordErrors.join(",")
       document.getElementById('small4').innerText = emailErrors.join(",")
       document.getElementById('small3').innerText = confirmPasswordErrors.join(",")
+      document.getElementById('small5').innerText = userTypeErrors.join(",")
     }
   })

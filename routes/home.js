@@ -7,9 +7,9 @@ var Proposal = require('../models/proposal');
 router.get('/:name', (req, res) => {
     const username = req.params.name;
     Job.find({Owner:username},(err,data)=>{
-        Job.find({},(err,alljobs)=>{
-            res.render('home', { username: username,Jobs:data,alljobs:alljobs });
-        })
+        // Job.find({},(err,alljobs)=>{
+            res.render('home', { username: username,Jobs:data });
+        // })
         // console.log(data);
        
     })
@@ -171,7 +171,8 @@ router.post('/proposal/:name/:id', (req, res) => {
                 if (err) console.log(err);
                 else {
                     const newid = newproposal._id;
-                    res.render('home', { message: "You have made a proposal to '" + data.JobName + "'", username: username });
+                    // res.render('home', { message: "You have made a proposal to '" + data.JobName + "'", username: username });
+                    res.redirect('/home/'+username);
                     Proposal.findOne({_id:newid},(err,data)=>{
                         Job.findOneAndUpdate({ _id: jobid},{$set:{Proposals:data}},(err,output)=>{
                             if(err) console.log(err);
