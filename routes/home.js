@@ -3,7 +3,19 @@ var router = express.Router();
 var User = require('../models/user');
 var Job = require('../models/job');
 var Proposal = require('../models/proposal');
-
+router.get('/:name/message=/:message', (req, res) => {
+    const username = req.params.name;
+    const message = req.params.message;
+    Job.find({Owner:username},(err,data)=>{
+        // Job.find({},(err,alljobs)=>{
+            console.log(data);
+            res.render('home', {message:message, username: username,Jobs:data });
+        // })
+        // console.log(data);
+       
+    })
+    // res.render('home', { username: username });
+})
 router.get('/:name', (req, res) => {
     const username = req.params.name;
     Job.find({Owner:username},(err,data)=>{
@@ -160,32 +172,39 @@ router.post('/proposal/:name/:id', (req, res) => {
 
         }
         else {
-            const newproposal = new Proposal({
-                madeby: username,
-                amount: info.amount,
-                discribe: info.discribe,
-                days: info.days
-            });
-
-            newproposal.save(err => {
-                if (err) console.log(err);
-                else {
-                    const newid = newproposal._id;
-                    // res.render('home', { message: "You have made a proposal to '" + data.JobName + "'", username: username });
-                    res.redirect('/home/'+username);
-                    Proposal.findOne({_id:newid},(err,data)=>{
-                        Job.findOneAndUpdate({ _id: jobid},{$set:{Proposals:data}},(err,output)=>{
-                            if(err) console.log(err);
-                            else {
-                                // console.log(output);
-                            }
-                        })
+            User.findOne({username:username},(err,userdata)=>{
+                if(err) console.log(err.message);
+                else{
+                    const newproposal = new Proposal({
+                        madeby: username,
+                        amount: info.amount,
+                        discribe: info.discribe,
+                        days: info.days,
+                        email:userdata.EmailId
+                    });
+        
+                    newproposal.save(err => {
+                        if (err) console.log(err);
+                        else {
+                            const newid = newproposal._id;
+                            // res.render('home', { message: "You have made a proposal to '" + data.JobName + "'", username: username });
+                            
+                            Proposal.findOne({_id:newid},(err,data)=>{
+                                Job.updateOne({ _id: jobid},{$push:{Proposals:data}},(err,output)=>{
+                                    if(err) console.log(err);
+                                    else {
+                                        // console.log(output);
+                                    }
+                                })
+                            })
+                            console.log(data.JobName);                   
+                        }
                     })
-                    
-                    
                 }
             })
-
+            const message = "You have made a proposal to '" + data.JobName + "'";
+                                        res.redirect('/home/'+username+'/message=/'+message);
+            
 
         }
 

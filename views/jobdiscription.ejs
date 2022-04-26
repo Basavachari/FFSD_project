@@ -57,12 +57,12 @@
                     <!-- <a href="#" class="btn btn-primary">Button</a> -->
                     <form class="row g-3" action="/home/proposal/<%=username%>/<%=Job._id%>" method="post">
                       <div class="col-mb-12">
-                        <label for="validationDefault01" class="form-label">Bid Amount</label>
+                        <label for="validationDefault01" class="form-label">Bid Amount per hour</label>
                         <input name="amount" type="number" class="form-control" id="validationDefault01" placeholder="Enter Amount in INR" required>
                       </div>
                       <div class="col-mb-6">
                         <label for="validationDefault02" class="form-label">No of days you work?</label>
-                        <input name="days" type="number" class="form-control" id="validationDefault02" placeholder="Enter Amount in INR" required>
+                        <input name="days" type="number" class="form-control" id="validationDefault02" placeholder="Enter number of days" required>
                       </div>
                       <div class="col-mb-12">
                         <label for="validationDefault03" class="form-label">Describe your proposal</label>
@@ -102,7 +102,7 @@
         </div>
       </div>
 
-      <div class="proposals">
+      <div class="proposals overflow-scroll">
         <div class="offcanvas offcanvas-end" data-bs-scroll="true" tabindex="-1" id="proposals"
           aria-labelledby="header">
           <div class="offcanvas-header">
@@ -119,10 +119,14 @@
                       <div class="col">
                         <img src="/image/Avatar 1.svg" class="card-img-top" alt="profilePic">
                       </div>
+
                       <div class="col">
                         <p><span class="name"><%= locals.Job.Proposals[i].madeby%></span><br>Reviews: <span class="review">4.9</span> /5.0</p>
-                        <!-- <a href="https://mail.google.com/mail/?view=cm&fs=1&to=someone@example.com&su=SUBJECT&body=BODY&bcc=someone.else@example.com"></a> -->
+                      <%if(locals.username==locals.Job.Owner ) { %>
+                        <a href="https://mail.google.com/mail/?view=cm&fs=1&to=<%=locals.Job.Proposals[i].email%>&su=About+the+proposal+you+made&body=Mail+me+your+details">Mail him</a>
+                        <%}%>
                       </div>
+                      
                     </div>
                   </div>
                 </div>
